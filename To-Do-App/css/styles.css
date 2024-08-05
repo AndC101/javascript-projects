@@ -12,6 +12,8 @@ body{
 .responsive-three-column-grid {
     display:block;
     column-gap:10px;
+    text-align: center;
+    height: auto;
 }
 
 /* columns */
@@ -25,7 +27,6 @@ body{
 .mid-col{
     background-color:yellow;
 }
-
 .right-col{
     background-color:greenyellow;
 }
@@ -37,4 +38,42 @@ body{
         grid-auto-rows: 1fr;
         grid-template-columns: 1fr 1fr 1fr;
     }
+}
+
+.center-align-flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+    gap:10px;
+}
+
+.welcome-text {
+    text-align: center;
+    width: 100%;
+}
+
+.image-button {
+    position: absolute;
+    left: 0;
+    margin-right:0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.material-symbols-outlined {
+    vertical-align:middle;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.material-symbols-outlined.md-48 { font-size: 48px; }
+
+.guide-text{
+    color: grey;
+    margin-left: 0; 
 }
