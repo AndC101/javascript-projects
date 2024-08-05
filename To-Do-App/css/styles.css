@@ -1,4 +1,9 @@
 body{
+    background-image: url(../images/sand-textures-background.jpg);
+    background-size:     cover;                      
+    background-repeat:   repeat;
+    background-position: center center;               
+
     margin: 10px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -19,6 +24,9 @@ body{
 /* columns */
 .responsive-three-column-grid > * {
     padding:1rem;
+    height: 450px;
+    border-radius: 20px;
+
 }
 
 .left-col{
