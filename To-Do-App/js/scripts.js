@@ -1,82 +1,94 @@
 // Variables
-
 let leftList = document.getElementById('left-list');
 let middleList = document.getElementById('middle-list');
 let rightList = document.getElementById('right-list');
-let task = leftList.querySelectorAll('.task');
+
 let threeColumn = document.querySelector('.responsive-three-column-grid');
 
-
-let deleteBtns = document.querySelectorAll('.delete');
+// array containing all the tasks
+let tasks = [];
 
 // Event delegation for the add buttons
 
 threeColumn.addEventListener('click', function(e){
-    console.log(e.target.getAttribute('id'))
     const target = e.target;
-    console.log(e);
+    // if the user presses ANY of the buttons
     if(target.matches('button') ){
-        // if the user presses any of the buttons, then add a the new task to the ul
 
         //if the user presses the left add btn
-        if(e.target.getAttribute('id') == 'left-add-btn') {
+        if(target.getAttribute('id') == 'left-add-btn') {
             
-            // every new task requires a div with class flex-container
-                // within there need to be:
-                // - x button
-                // - li item  
-            let taskContainer = document.createElement('div');
-            let newTask = document.createElement('li');
-            let newDeleteBtn = document.createElement('button');
+            todoFunctionality('left-list', 'left-text-area')
+            console.log("Todo Func exited from left");
+        } else if (target.getAttribute('id') == 'middle-add-btn') {
+            todoFunctionality('middle-list', 'middle-text-area')
+            console.log("Todo Func exited from mid");
 
-            // get the textbox input and set inner text
-            let taskText = document.getElementById('left-text-area').value; 
-            newTask.innerHTML = taskText;
-            newDeleteBtn.innerHTML = "&times;";
+        } else if (target.getAttribute('id') == 'right-add-btn'){
+            todoFunctionality('right-list', 'right-text-area')
+            console.log("Todo Func exited from right");
 
-            // set the attributes for the elems
-            taskContainer.setAttribute('class', 'flex-container');
-            newDeleteBtn.setAttribute('class', 'delete');
-
-            // append the li and div to the container
-            taskContainer.append(newDeleteBtn);
-            taskContainer.append(newTask);
-
-            // append the container to the unordered list
-            leftList.append(taskContainer);
-
-            //wipe the existing text because it is "entered" now
-            document.getElementById('left-text-area').value = ""; 
-
-
-        } else if (e.target.getAttribute('id') == 'middle-add-btn') {
-            let newTask = document.createElement('li');
-
-            // get the textbox input
-            let taskText = document.getElementById('middle-text-area').value; 
-            newTask.innerHTML = taskText;
-
-            // append the task and delete the text
-            middleList.append(newTask);
-            document.getElementById('middle-text-area').value = ""; 
-
-        } else if (e.target.getAttribute('id') == 'right-add-btn'){
-            let newTask = document.createElement('li');
-
-            // get the textbox input
-            let taskText = document.getElementById('right-text-area').value; 
-            newTask.innerHTML = taskText;
-
-            // append the task and delete the text
-            rightList.append(newTask);
-            document.getElementById('right-text-area').value = ""; 
-
-
+        } else {
         }
     }
 });
 
 
-// Handle deleting of tasks
 
-deleteBtns
+
+function todoFunctionality( listId, textArea ) {
+    // every new task requires a div with class flex-container
+    let list = document.getElementById(listId);
+    
+    // within there need to be:
+    // - x button
+    // - li item 
+    let taskContainer = document.createElement('div');
+    let newTask = document.createElement('li');
+    let newDeleteBtn = document.createElement('button');
+
+    // get the textbox input and set inner text
+    let taskText = document.getElementById(textArea).value; 
+    newTask.innerHTML = taskText;
+    newDeleteBtn.innerHTML = "&rarr;";
+    
+
+    // set the attributes for the elems
+    taskContainer.setAttribute('class', 'flex-container');
+    newDeleteBtn.setAttribute('class', 'delete');
+
+    // append the li and div to the container
+    taskContainer.append(newDeleteBtn);
+    taskContainer.append(newTask);
+
+
+    // append the container to the unordered list and the array to keep track
+    list.append(taskContainer);
+    tasks.push(taskContainer);
+
+    //wipe the existing text because it is "entered" now
+    document.getElementById(textArea).value = "";
+    taskContainer.addEventListener('click', function() {
+        console.log("-> is pressed from ", listId);
+        // if this is moved from left or mid list, move it to the next list.
+        if(listId == "left-list" && leftList.contains(taskContainer)) {
+            // move it to the middle
+            leftList.removeChild(taskContainer);
+            middleList.appendChild(taskContainer);
+            listId = 'middle-list';
+            console.log("left-list");
+        } else if (listId == "middle-list" && middleList.contains(taskContainer)){
+            // move it to the right list
+            middleList.removeChild(taskContainer);
+            rightList.appendChild(taskContainer);
+            newDeleteBtn.innerHTML = "&#10003;";
+            listId = 'right-list';
+            console.log("mid-list");
+
+        } else if (listId == "right-list" && rightList.contains(taskContainer)){
+            // delete the item from the list
+            rightList.removeChild(taskContainer);
+            console.log("right-list");
+        }
+    });
+}
