@@ -105,15 +105,6 @@ body{
     opacity: 100%;
 }
 
-/* button.close {
-    display:flex;
-    background-color:rgb(255,0,0, 0.5);
-    border-color: rgb(255,0,0, 0.5);
-    border-radius: 5px;
-    border-width: 2px;
-    cursor:pointer;
-} */
-
 button.add{
     display: inline-block;
     margin-right: 10px;
@@ -131,7 +122,6 @@ textarea{
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 10px;
     resize:none;
-    
 }
 
 textarea:focus{
@@ -141,4 +131,31 @@ textarea:focus{
 .flex-container{
     display:flex;
     flex-direction:row;
+}
+
+
+
+/* styles for task blocks */
+
+button.delete {
+    display: inline-block;
+    margin-right: 10px;
+    background-color:rgb(255,0,0, 0.5);
+    border-color: rgb(255,255,0, 0.5);
+    /* height:100px; */
+    border-radius: 100px;
+    border-width: solid 1.5px;
+    cursor:pointer;
+}
+
+li {
+    display:inline-block;
+    background-color: white;
+    padding: 12px 12px;
+    border-radius: 10px;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
 }
