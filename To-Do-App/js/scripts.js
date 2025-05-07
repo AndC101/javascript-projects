@@ -17,29 +17,23 @@ threeColumn.addEventListener('click', function(e){
 
         //if the user presses the left add btn
         if(target.getAttribute('id') == 'left-add-btn') {
-            
             todoFunctionality('left-list', 'left-text-area')
-            console.log("Todo Func exited from left");
+
         } else if (target.getAttribute('id') == 'middle-add-btn') {
             todoFunctionality('middle-list', 'middle-text-area')
-            console.log("Todo Func exited from mid");
 
         } else if (target.getAttribute('id') == 'right-add-btn'){
             todoFunctionality('right-list', 'right-text-area')
-            console.log("Todo Func exited from right");
 
         } else {
         }
     }
 });
 
-
-
-
 function todoFunctionality( listId, textArea ) {
     // every new task requires a div with class flex-container
     let list = document.getElementById(listId);
-    
+        
     // within there need to be:
     // - x button
     // - li item 
@@ -50,7 +44,12 @@ function todoFunctionality( listId, textArea ) {
     // get the textbox input and set inner text
     let taskText = document.getElementById(textArea).value; 
     newTask.innerHTML = taskText;
-    newDeleteBtn.innerHTML = "&rarr;";
+
+    if (listId == "right-list") {
+        newDeleteBtn.innerHTML = "&#10003;";
+    } else {
+        newDeleteBtn.innerHTML = "&rarr;";
+    }
     
 
     // set the attributes for the elems
@@ -69,26 +68,22 @@ function todoFunctionality( listId, textArea ) {
     //wipe the existing text because it is "entered" now
     document.getElementById(textArea).value = "";
     taskContainer.addEventListener('click', function() {
-        console.log("-> is pressed from ", listId);
         // if this is moved from left or mid list, move it to the next list.
         if(listId == "left-list" && leftList.contains(taskContainer)) {
             // move it to the middle
             leftList.removeChild(taskContainer);
             middleList.appendChild(taskContainer);
             listId = 'middle-list';
-            console.log("left-list");
         } else if (listId == "middle-list" && middleList.contains(taskContainer)){
             // move it to the right list
             middleList.removeChild(taskContainer);
             rightList.appendChild(taskContainer);
             newDeleteBtn.innerHTML = "&#10003;";
             listId = 'right-list';
-            console.log("mid-list");
 
         } else if (listId == "right-list" && rightList.contains(taskContainer)){
             // delete the item from the list
             rightList.removeChild(taskContainer);
-            console.log("right-list");
         }
     });
 }
